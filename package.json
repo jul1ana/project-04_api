@@ -1,0 +1,24 @@
+{
+  "name": "project-04_api",
+  "version": "1.0.0",
+  "description": "Desenvolvendo uma aplicação API Rest Full",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jul1ana/project-04_api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jul1ana/project-04_api/issues"
+  },
+  "homepage": "https://github.com/jul1ana/project-04_api#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
