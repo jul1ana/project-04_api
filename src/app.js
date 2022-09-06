@@ -17,9 +17,24 @@ app.get("/api/v1/user", (req, res) => {
     res.status(200).json(users);
 })
 
+app.get("/api/v1/user/:id", (req, res) => {
+    let index = buscaUsuario(req.params.id);
+    res.json(users[index]);
+})
+
 app.post("/api/v1/user", (req, res) => {
     users.push(req.body);
     res.status(201).send("Usuário cadastrado com sucesso!");
 })
+
+app.put("/api/v1/user/:id", (req, res) => {
+    let index = buscaUsuario(req.params.id);
+    users[index].name = req.body.name;
+    res.json(users);
+})
+
+function buscaUsuario(id) {
+    return users.findIndex(user => user.id == id);
+}
 
 export default app 
