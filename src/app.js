@@ -33,6 +33,13 @@ app.put("/api/v1/user/:id", (req, res) => {
     res.json(users);
 })
 
+app.delete("/api/v1/user/:id", (req, res) => {
+    let {id} = req.params;
+    let index = buscaUsuario(id);
+    users.splice(index, 1);
+    res.send(`Usuário ${id} deletado com sucesso!`);
+})
+
 function buscaUsuario(id) {
     return users.findIndex(user => user.id == id);
 }
