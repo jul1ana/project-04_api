@@ -1,6 +1,7 @@
 import express from "express";
 import db from "./config/dbConnect.js"; 
 import users from "./models/User.js";
+import routes from "./routes/index.js";
 
 db.on("error", console.log.bind(console, "Erro de conexão."));
 db.once("open", () => {
@@ -11,20 +12,12 @@ const app = express();
 
 app.use(express.json());
 
+routes(app);
+
 // const users = [
 //     {id: 1, "name": "Juliana"},
 //     {id: 2, "name": "Otávio"}
 // ]
-
-app.get("/api/v1", (req, res) => {
-    res.status(200).send("Inicializando");
-})
-
-app.get("/api/v1/user", (req, res) => {
-    users.find((err, users) => {
-        res.status(200).json(users);
-    });
-})
 
 app.get("/api/v1/user/:id", (req, res) => {
     let index = buscaUsuario(req.params.id);
