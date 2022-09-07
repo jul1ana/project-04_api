@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema(
         name: {type: String, required: true},
         cpf: {type: String, validate: [validatorCpf, "este campo deve conter 11 caracteres."], required: true},
         birthDate: {type: String, required: true},
-        email: {type: String, required: true},
+        email: {type: String, validate: /\S+@\S+\.\S+/, required: true},
         password: {type: String, validate: [validatorSenha, "este campo deve conter no mínimo 6 dígitos."], required: true},
         address: {type: String, required: true},
         number: {type: String, required: true},
