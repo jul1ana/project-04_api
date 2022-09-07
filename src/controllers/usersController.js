@@ -21,6 +21,7 @@ class UserController {
     }
 
     static cadastrarUser = (req, res) => {
+
         let user = new users(req.body);
 
         user.save((err) => {
