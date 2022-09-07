@@ -4,9 +4,10 @@ import UserController from "../controllers/usersController.js";
 const router = express.Router();
 
 router
-    .get("/api/v1/user", UserController.listarUsers)
+    .get("/api/v1/user", UserController.listarUser)
     .get("/api/v1/user/:id", UserController.listarUserPorId)
-    .post("/api/v1/user", UserController.cadastrarUsers)
-    .put("/api/v1/user/:id", UserController.atualizarUsers) 
+    .post("/api/v1/user", UserController.cadastrarUser)
+    .put("/api/v1/user/:id", UserController.atualizarUser) 
+    .delete("/api/v1/user/:id", UserController.excluirUser) 
 
 export default router;

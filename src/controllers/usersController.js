@@ -2,7 +2,7 @@ import users from "../models/User.js";
 
 class UserController {
 
-    static listarUsers = (req, res) => {
+    static listarUser = (req, res) => {
         users.find((err, users) => {
             res.status(200).json(users);
         });
@@ -20,7 +20,7 @@ class UserController {
         }); 
     }
 
-    static cadastrarUsers = (req, res) => {
+    static cadastrarUser = (req, res) => {
         let user = new users(req.body);
 
         user.save((err) => {
@@ -33,12 +33,24 @@ class UserController {
         });
     }
 
-    static atualizarUsers = (req, res) => {
+    static atualizarUser = (req, res) => {
         const id = req.params.id;
 
         users.findByIdAndUpdate(id, {$set: req.body}, (err) => {
             if(!err) {
                 res.status(200).send({message: "Usuário atualizado com sucesso!"});
+            } else {
+                res.status(500).send({message: err.message});
+            }
+        });
+    }
+
+    static excluirUser = (req, res) => {
+        const id = req.params.id;
+
+        users.findByIdAndDelete(id, (err) => {
+            if(!err) {
+                res.status(200).send({message: "Usuário removido com sucesso!"});
             } else {
                 res.status(500).send({message: err.message});
             }
