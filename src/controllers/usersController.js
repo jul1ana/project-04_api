@@ -17,6 +17,18 @@ class UserController {
         }).select("-password");
     }
 
+    static listarUserPorNome = (req, res) => {
+        const name = req.query.name;
+
+        users.find({'name': {$regex: name}}, {}, (err, users) => {
+            if(err) {
+                res.status(404).send({message: `${err.message} - Usuário não encontrado.`});
+            } else {
+                res.status(200).send(users);
+            }
+        }).select("-password");
+    }
+
     static listarUserPorId = (req, res) => {
         const id = req.params.id;
 
