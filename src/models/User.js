@@ -1,7 +1,16 @@
 import mongoose from "mongoose";
+import mongooseDateFormat from "mongoose-date-format";
 
 function validatorCpf(cpf) {
     return cpf.length > 10 && cpf.length < 12;
+}
+
+const validatorBirthDate = (bday) => {
+    let birthDate = new Date(bday);
+    let today = new Date();
+    let year = today - birthDate;
+    let age = Math.floor(year/31557600000);
+    return age > 17;
 }
 
 function validatorPassword(pass) {
@@ -13,7 +22,7 @@ const userSchema = new mongoose.Schema(
         id: {type: String},
         name: {type: String, required: true},
         cpf: {type: String, validate: [validatorCpf, "this field must contain 11 characters."], required: true},
-        birthDate: {type: Date, max: "09/08/2004", required: true},
+        birthDate: {type: Date, required: true, validate: [validatorBirthDate, "date of birth must be more than 18 years."]},
         email: {type: String, validate: /\S+@\S+\.\S+/, required: true},
         password: {type: String, validate: [validatorPassword, "this field must contain at least 6 digits."], required: true},
         address: {type: String, required: true},
@@ -26,6 +35,7 @@ const userSchema = new mongoose.Schema(
     }
 );
 
+userSchema.plugin(mongooseDateFormat);
 const users = mongoose.model("users", userSchema);
 
 export default users;
