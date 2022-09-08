@@ -3,9 +3,18 @@ import users from "../models/User.js";
 class UserController {
 
     static listarUser = (req, res) => {
+
         users.find((err, users) => {
-            res.status(200).json(users);
-        });
+            const page = req.query.page;
+            const limit = req.query.limit;
+    
+            const startIndex = (page - 1) * limit;
+            const endIndex = page * limit;
+    
+            const resultUsers = users.slice(startIndex, endIndex);
+            res.json(resultUsers);
+            // res.status(200).json(users);
+        }).select("-password");
     }
 
     static listarUserPorId = (req, res) => {
@@ -13,11 +22,11 @@ class UserController {
 
         users.findById(id, (err, users) => {
             if(err) {
-                res.status(400).send({message: `${err.message} - Id do usuário não encontrado.`});
+                res.status(404).send({message: `${err.message} - Id do usuário não encontrado.`});
             } else {
                 res.status(200).send(users);
             }
-        }); 
+        }).select("-password"); 
     }
 
     static cadastrarUser = (req, res) => {
@@ -41,7 +50,7 @@ class UserController {
             if(!err) {
                 res.status(200).send({message: "Usuário atualizado com sucesso!"});
             } else {
-                res.status(500).send({message: err.message});
+                res.status(404).send({message: err.message});
             }
         });
     }
@@ -51,13 +60,13 @@ class UserController {
 
         users.findByIdAndDelete(id, (err) => {
             if(!err) {
-                res.status(200).send({message: "Usuário removido com sucesso!"});
+                res.status(204).send({message: "Usuário removido com sucesso!"});
             } else {
-                res.status(500).send({message: err.message});
+                res.status(404).send({message: err.message});
             }
         });
     }
 
 }
 
-export default UserController;
+export default UserController; 
