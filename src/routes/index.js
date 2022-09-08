@@ -4,7 +4,7 @@ import users from "./usersRoutes.js";
 
 const routes = (app) => {
     app.route("/api/v1").get((req, res) => {
-        res.status(200).send({name: "Inicio"});
+        res.status(200).send({name: "Initializing API."});
     });
 
     app.use(
