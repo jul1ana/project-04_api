@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import mongooseDateFormat from "mongoose-date-format";
 
 function validatorCpf(cpf) {
-    return cpf.length > 10 && cpf.length < 12;
+    return cpf.length == 11;
 }
 
 const validatorBirthDate = (bday) => {
