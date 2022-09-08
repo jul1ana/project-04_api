@@ -20,7 +20,7 @@ class UserController {
     static listUserByName = (req, res) => {
         const name = req.query.name;
 
-        users.find({'name': {$regex: name}}, {}, (err, users) => {
+        users.find({'name': {$regex: name, $options:"i"}}, {}, (err, users) => {
             if(err) {
                 res.status(404).send({message: `${err.message} - User not found.`});
             } else {
@@ -72,7 +72,7 @@ class UserController {
 
         users.findByIdAndDelete(id, (err) => {
             if(!err) {
-                res.status(204).send({message: "User successfully removed!"});
+                res.status(200).send({message: "User successfully removed!"});
             } else {
                 res.status(404).send({message: err.message});
             }
